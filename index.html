@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvard University News Blog | Victoria Mueni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header and Navigation */
+        header {
+            background-color: #A51C30; /* Harvard crimson */
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 60px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+        
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .brand-name span {
+            font-weight: 300;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        nav ul li a:hover {
+            border-bottom: 2px solid white;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Main Content Layout */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+        
+        /* Blog Articles Section */
+        .articles-section {
+            flex: 2;
+        }
+        
+        .section-title {
+            color: #A51C30;
+            border-bottom: 2px solid #A51C30;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .articles-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        article {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        article:hover {
+            transform: translateY(-5px);
+        }
+        
+        .article-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .article-content {
+            padding: 20px;
+        }
+        
+        .article-title {
+            color: #A51C30;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .article-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .article-excerpt {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #A51C30;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .read-more:hover {
+            border-bottom: 1px solid #A51C30;
+        }
+        
+        /* Cards Section */
+        .cards-section {
+            flex: 1;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        
+        .card-title {
+            color: #A51C30;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-text {
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #ddd;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #A51C30;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .contact-info {
+            color: #aaa;
+            line-height: 1.8;
+        }
+        
+        .contact-info i {
+            color: #A51C30;
+            margin-right: 8px;
+            width: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: #A51C30;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .brand-name {
+                font-size: 1.4rem;
+            }
+            
+            .logo {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Harvard_shield_wreath.svg/800px-Harvard_shield_wreath.svg.png" alt="Harvard University Logo" class="logo">
+                <div class="brand-name">Harvard <span>News Blog</span></div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="#"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> Victoria Mueni</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Blog Articles Section (20 Articles) -->
+        <section class="articles-section">
+            <h2 class="section-title">Harvard University News</h2>
+            <div class="articles-container">
+                <!-- Article 1 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Cancer Research" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Researchers Discover New Approach to Cancer Treatment</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> October 15, 2023</span>
+                            <span><i class="far fa-folder"></i> Medical Research</span>
+                        </div>
+                        <p class="article-excerpt">A team of Harvard Medical School scientists has identified a novel therapeutic target that could lead to more effective treatments for aggressive forms of cancer.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Climate Initiative" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard University Announces New Climate Initiative</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> October 12, 2023</span>
+                            <span><i class="far fa-folder"></i> Sustainability</span>
+                        </div>
+                        <p class="article-excerpt">Harvard has launched a $500 million climate initiative aimed at developing innovative solutions to address global climate challenges.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Harvard Law School" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Law School Welcomes Most Diverse Class in History</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> October 10, 2023</span>
+                            <span><i class="far fa-folder"></i> Admissions</span>
+                        </div>
+                        <p class="article-excerpt">This year's incoming class at Harvard Law School represents the most diverse group of students in the institution's 200-year history.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI Research" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">New AI Research Center Opens at Harvard</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> October 8, 2023</span>
+                            <span><i class="far fa-folder"></i> Technology</span>
+                        </div>
+                        <p class="article-excerpt">Harvard has inaugurated a new interdisciplinary center for artificial intelligence research, bringing together experts from computer science, ethics, and public policy.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Economics Research" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Study Reveals Economic Impact of Remote Work</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> October 5, 2023</span>
+                            <span><i class="far fa-folder"></i> Economics</span>
+                        </div>
+                        <p class="article-excerpt">A comprehensive study by Harvard economists shows how remote work is reshaping urban economies and labor markets across the United States.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Art Collection" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Art Museums Acquire Rare Renaissance Collection</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> October 3, 2023</span>
+                            <span><i class="far fa-folder"></i> Arts & Culture</span>
+                        </div>
+                        <p class="article-excerpt">The Harvard Art Museums have acquired a significant collection of Renaissance artworks, including pieces previously held in private European collections.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 7 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Battery Technology" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Researchers Develop New Battery Technology</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 30, 2023</span>
+                            <span><i class="far fa-folder"></i> Engineering</span>
+                        </div>
+                        <p class="article-excerpt">Scientists at Harvard's John A. Paulson School of Engineering have created a new type of battery that could significantly extend the range of electric vehicles.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 8 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1544717305-99670f9c28f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Divinity School" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Divinity School Launches Interfaith Initiative</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 28, 2023</span>
+                            <span><i class="far fa-folder"></i> Religion</span>
+                        </div>
+                        <p class="article-excerpt">A new initiative at Harvard Divinity School aims to foster dialogue and understanding among different religious traditions in an increasingly pluralistic world.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 9 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Business Leadership" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Business School Study on Leadership in Crisis</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 25, 2023</span>
+                            <span><i class="far fa-folder"></i> Business</span>
+                        </div>
+                        <p class="article-excerpt">New research from Harvard Business School examines how effective leaders navigate organizational crises and emerge stronger.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 10 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Astronomy" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Astronomers Discover Exoplanet with Potential for Life</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 22, 2023</span>
+                            <span><i class="far fa-folder"></i> Astronomy</span>
+                        </div>
+                        <p class="article-excerpt">Using data from the James Webb Space Telescope, Harvard astronomers have identified an exoplanet with atmospheric conditions that could support life.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 11 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Neuroscience" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Neuroscience Breakthrough in Alzheimer's Research</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 20, 2023</span>
+                            <span><i class="far fa-folder"></i> Neuroscience</span>
+                        </div>
+                        <p class="article-excerpt">Harvard neuroscientists have discovered a new pathway that could lead to treatments slowing the progression of Alzheimer's disease.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 12 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Public Health" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Public Health Initiative Reduces Childhood Obesity</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 18, 2023</span>
+                            <span><i class="far fa-folder"></i> Public Health</span>
+                        </div>
+                        <p class="article-excerpt">A school-based intervention developed at Harvard has shown remarkable success in reducing childhood obesity rates in urban communities.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 13 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Education" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Education School Reforms Teacher Training</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 15, 2023</span>
+                            <span><i class="far fa-folder"></i> Education</span>
+                        </div>
+                        <p class="article-excerpt">Harvard Graduate School of Education unveils a revolutionary new approach to teacher preparation focused on equity and inclusion.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 14 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="History" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Historians Uncover Lost Civil Rights Archives</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 12, 2023</span>
+                            <span><i class="far fa-folder"></i> History</span>
+                        </div>
+                        <p class="article-excerpt">A team of Harvard historians has discovered previously unknown archives documenting early civil rights activism in the American South.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 15 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Political Science" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Political Scientists Analyze Global Democracy Trends</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 10, 2023</span>
+                            <span><i class="far fa-folder"></i> Political Science</span>
+                        </div>
+                        <p class="article-excerpt">New research from Harvard's Department of Government provides fresh insights into the state of democracy worldwide.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 16 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Architecture" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Architecture School Designs Sustainable Cities</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 8, 2023</span>
+                            <span><i class="far fa-folder"></i> Architecture</span>
+                        </div>
+                        <p class="article-excerpt">Harvard Graduate School of Design students present innovative solutions for creating carbon-neutral urban environments.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 17 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Linguistics" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Linguistics Department Documents Endangered Languages</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 5, 2023</span>
+                            <span><i class="far fa-folder"></i> Linguistics</span>
+                        </div>
+                        <p class="article-excerpt">Researchers at Harvard are working with indigenous communities to document and preserve languages at risk of extinction.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 18 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Mathematics" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Mathematicians Solve Century-Old Problem</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> September 3, 2023</span>
+                            <span><i class="far fa-folder"></i> Mathematics</span>
+                        </div>
+                        <p class="article-excerpt">A team of Harvard mathematicians has made a breakthrough in solving a problem that has puzzled experts for over 100 years.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 19 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1518834103328-5d0b0f9b5ef9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Environmental Science" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Environmental Scientists Study Coral Reef Restoration</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> August 30, 2023</span>
+                            <span><i class="far fa-folder"></i> Environmental Science</span>
+                        </div>
+                        <p class="article-excerpt">Harvard researchers are developing new techniques to help restore coral reefs damaged by climate change and pollution.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 20 -->
+                <article>
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Global Health" class="article-img">
+                    <div class="article-content">
+                        <h3 class="article-title">Harvard Launches Global Health Partnership</h3>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> August 28, 2023</span>
+                            <span><i class="far fa-folder"></i> Global Health</span>
+                        </div>
+                        <p class="article-excerpt">Harvard Medical School announces a new partnership with institutions in Africa to address health disparities and build research capacity.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Cards Section (20 Cards) -->
+        <aside class="cards-section">
+            <h2 class="section-title">Featured Programs</h2>
+            <div class="cards-container">
+                <!-- Card 1 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Harvard Admissions" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard College Admissions</h4>
+                        <p class="card-text">Learn about the application process, financial aid, and student life at Harvard College.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Online Learning" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Online Learning</h4>
+                        <p class="card-text">Access free online courses from Harvard University through our digital learning platforms.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Library System" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Library System</h4>
+                        <p class="card-text">Explore one of the world's largest academic library collections with over 20 million volumes.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Athletics" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Athletics</h4>
+                        <p class="card-text">Stay updated on Harvard's 42 varsity athletic teams and their achievements.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Innovation Labs" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Innovation Labs</h4>
+                        <p class="card-text">Supporting entrepreneurs and innovators across the Harvard community and beyond.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Art Museums" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Art Museums</h4>
+                        <p class="card-text">Discover world-class art collections spanning centuries and cultures.</p>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Medical School" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Medical School</h4>
+                        <p class="card-text">Training the next generation of medical leaders and advancing healthcare.</p>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1589391886085-8b6b0ac72a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Law School" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Law School</h4>
+                        <p class="card-text">Preparing students for leadership in law, business, and public service.</p>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Business School" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Business School</h4>
+                        <p class="card-text">Developing leaders who make a difference in the world of business and beyond.</p>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1542744095-0d53267f0c1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Kennedy School" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Kennedy School</h4>
+                        <p class="card-text">Training public leaders and generating ideas to solve public problems globally.</p>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Graduate School of Design" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Graduate School of Design</h4>
+                        <p class="card-text">Educating design leaders and advancing sustainable design solutions worldwide.</p>
+                    </div>
+                </div>
+
+                <!-- Card 12 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="School of Engineering" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard School of Engineering</h4>
+                        <p class="card-text">Advancing engineering frontiers and solving complex global challenges through innovation.</p>
+                    </div>
+                </div>
+
+                <!-- Card 13 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1544717305-99670f9c28f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Divinity School" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Divinity School</h4>
+                        <p class="card-text">Exploring religious traditions and preparing religious leaders for interfaith dialogue.</p>
+                    </div>
+                </div>
+
+                <!-- Card 14 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Graduate School of Education" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Graduate School of Education</h4>
+                        <p class="card-text">Transforming education through research, policy, and practice innovation.</p>
+                    </div>
+                </div>
+
+                <!-- Card 15 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="History Department" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard History Department</h4>
+                        <p class="card-text">Uncovering the past to better understand the present and shape the future.</p>
+                    </div>
+                </div>
+
+                <!-- Card 16 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Government Department" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Government Department</h4>
+                        <p class="card-text">Studying political systems and preparing future leaders in public service.</p>
+                    </div>
+                </div>
+
+                <!-- Card 17 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Linguistics Department" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Linguistics Department</h4>
+                        <p class="card-text">Exploring language structure, acquisition, and its role in human cognition.</p>
+                    </div>
+                </div>
+
+                <!-- Card 18 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Mathematics Department" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Mathematics Department</h4>
+                        <p class="card-text">Advancing mathematical research and training the next generation of mathematicians.</p>
+                    </div>
+                </div>
+
+                <!-- Card 19 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1518834103328-5d0b0f9b5ef9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Environmental Science" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Environmental Science</h4>
+                        <p class="card-text">Addressing pressing environmental challenges through interdisciplinary research.</p>
+                    </div>
+                </div>
+
+                <!-- Card 20 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Global Health Initiative" class="card-img">
+                    <div class="card-content">
+                        <h4 class="card-title">Harvard Global Health Initiative</h4>
+                        <p class="card-text">Improving health outcomes worldwide through research, education, and partnerships.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Harvard</h3>
+                <p>Harvard University is devoted to excellence in teaching, learning, and research, and to developing leaders in many disciplines who make a difference globally.</p>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Academics</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Campus Life</a></li>
+                    <li><a href="#">Alumni</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Massachusetts Hall, Cambridge, MA 02138</p>
+                    <p><i class="fas fa-phone"></i> 0714898576</p>
+                    <p><i class="fas fa-envelope"></i> contact@harvard.edu</p>
+                    <p><i class="fas fa-user"></i> Victoria Mueni</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" style="color: #aaa; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: #aaa; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="color: #aaa; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: #aaa; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="color: #aaa; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Harvard University News Blog. All rights reserved. | Created by Victoria Mueni</p>
+        </div>
+    </footer>
+</body>
+</html>
